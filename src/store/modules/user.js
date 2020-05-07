@@ -2,12 +2,12 @@
 用来管理用户数据的vuex模块
 */
 
-export default  {
+export default {
   state: {
     userInfo: {},
-    x: ''
+    x: "",
   },
   mutations: {},
   actions: {},
   getters: {},
-}
+};

@@ -1,37 +1,37 @@
 <template>
   <div>
-    <TypeNav/>
-    <ListContainer/>
-    <TodayRecommend/>
-    <Rank/>
-    <Like/>
-    <Floor/>
-    <Floor/>
-    <Brand/>
+    <TypeNav />
+    <ListContainer />
+    <TodayRecommend />
+    <Rank />
+    <Like />
+    <Floor />
+    <Floor />
+    <Brand />
   </div>
 </template>
 
 <script>
-import ListContainer from './ListContainer/ListContainer'
-import TodayRecommend from './TodayRecommend/TodayRecommend'
-import Rank from './Rank/Rank'
-import Like from './Like/Like'
-import Floor from './Floor/Floor'
-import Brand from './Brand/Brand'
+import ListContainer from "./ListContainer/ListContainer";
+import TodayRecommend from "./TodayRecommend/TodayRecommend";
+import Rank from "./Rank/Rank";
+import Like from "./Like/Like";
+import Floor from "./Floor/Floor";
+import Brand from "./Brand/Brand";
 export default {
-  name: 'Home',
-
+  name: "Home",
+  mounted() {
+    this.$store.dispatch("getBaseCategoryList");
+  },
   components: {
     ListContainer,
     TodayRecommend,
     Rank,
     Like,
     Floor,
-    Brand
-  }
-}
+    Brand,
+  },
+};
 </script>
 
-<style lang="less" scoped>
-
-</style>
+<style lang="less" scoped></style>
