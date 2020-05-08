@@ -12,9 +12,14 @@
 <script>
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-
+import { reqFloors } from "@/api";
 export default {
   name: "App",
+  async mounted() {
+    // this.$store.dispatch("getFloors");
+    // this.$store.dispatch("getBanners");
+    this.$store.dispatch("getBaseCategoryList");
+  },
   components: {
     Header,
     Footer,

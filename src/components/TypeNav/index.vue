@@ -85,7 +85,6 @@ export default {
 
   data() {
     return {
-      // -2: 代表完全在整个div外面  -1: 代表在大的div中  >=0 代表在分类项小div中
       currentIndex: -2, // 需要显示子列表的一级分类项的下标
       isShowFirst: false, // 是否显示一级列表
     };
@@ -93,6 +92,8 @@ export default {
 
   computed: {
     ...mapState({
+      // 计算属性值由vuex内部调用此回调函数(传入总state)得到返回值作为属性值
+      // state: store的总状态
       categoryList: (state) => state.home.baseCategoryList,
     }),
   },
@@ -105,12 +106,29 @@ export default {
     //  判断当前请求的路由路径是否是 / , 如果是一级列表显示, 否则隐藏
     this.isShowFirst = this.$route.path === "/";
   },
+
+  /* 
+    初始显示之后
+    执行异步操作后更新数据
+    */
+  /* mounted () {
+      // 通过异步action获取异步获取数据到vuex的state中
+      this.$store.dispatch('getBaseCategoryList')
+    },
+    */
+
   methods: {
+    /* 
+      显示分类列表
+      */
     showCategorys() {
       this.currentIndex = -1;
       this.isShowFirst = true;
     },
 
+    /* 
+      隐藏分类列表(有可能需要)
+      */
     hideCategorys() {
       this.currentIndex = -2;
       // 如果当前不是首页, 隐藏一级列表
@@ -119,12 +137,22 @@ export default {
       }
     },
 
+    /* 
+      显示指定下标的子分类
+      */
+    // showSubCategorys: _.throttle(function (index) {
     showSubCategorys: throttle(function(index) {
+      // console.log('showSubCategorys', index)
       if (this.currentIndex === -2) return; // 如果已经完全移出去了, 不做更新
       // 更新需要显示子分类的下标
       this.currentIndex = index;
+      // 会导致列表更新(浏览器在更新过程中没办法去响应后面mouseenter)  ==> 实际上就是界面卡了 不太好
+      // 理想: 不去特别频繁的更新数据(更新界面)   ==> 使用节流
     }, 300),
 
+    /* 
+      点击分类项, 跳转到搜索界面
+      */
     toSearch(event) {
       const {
         categoryname,
