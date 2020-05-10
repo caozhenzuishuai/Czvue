@@ -16,3 +16,9 @@ export function reqLogin(mobile, password) {
 }
 export const reqBanners = () => mockAjax("/banners");
 export const reqFloors = () => mockAjax("/floors");
+export const reqProductList = (searchParams) =>
+  ajax({
+    url: "/list",
+    method: "POST",
+    data: searchParams,
+  });
