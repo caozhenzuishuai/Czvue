@@ -29,7 +29,11 @@ VueRouter.prototype.replace = function(location, onComplete, onAbort) {
     });
   }
 };
+
 export default new VueRouter({
   mode: "history",
   routes,
+  scrollBehavior(to, from, savedPosition) {
+    return { x: 0, y: 0 }; // 在跳转路由时, 滚动条自动滚动到x轴和y轴的起始位置
+  },
 });

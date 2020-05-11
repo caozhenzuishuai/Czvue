@@ -2,7 +2,7 @@ import Home from "@/pages/Home";
 import Search from "@/pages/Search";
 import Register from "@/pages/Register";
 import Login from "@/pages/Login";
-
+import Detail from "@/pages/Detail";
 export default [
   {
     path: "/",
@@ -16,6 +16,11 @@ export default [
       keyword3: route.params.keyword,
       keyword4: route.query.keyword2,
     }),
+  },
+  {
+    name: "detail",
+    path: "/detail/:id",
+    component: Detail,
   },
   {
     path: "/register",

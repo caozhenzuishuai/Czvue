@@ -19,7 +19,16 @@ const actions = {
     }
   },
 };
-const getters = {};
+
+const getters = {
+  trademarkList(state) {
+    return state.productList.trademarkList || [];
+  },
+
+  attrsList(state) {
+    return state.productList.attrsList || [];
+  },
+};
 
 export default {
   state,
