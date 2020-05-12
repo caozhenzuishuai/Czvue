@@ -12,6 +12,9 @@ Vue.component("TypeNav", TypeNav);
 Vue.component("Carousel", Carousel);
 Vue.component("Pagination", Pagination);
 new Vue({
+  beforeCreate() {
+    Vue.prototype.$bus = this;
+  },
   render: (h) => h(App),
   router,
   store,
