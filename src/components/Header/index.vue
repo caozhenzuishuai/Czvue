@@ -5,7 +5,14 @@
       <div class="container">
         <div class="loginList">
           <p>尚品汇欢迎您！</p>
-          <p>
+
+          <p v-if="userInfo.name">
+            <span>{{ userInfo.nickName }}</span>
+            &nbsp;&nbsp;&nbsp;
+            <a href="javascript:">登出</a>
+          </p>
+
+          <p v-else>
             <span>请</span>
             <router-link to="/login">登录</router-link>
             <router-link to="/register" class="register">免费注册</router-link>
@@ -13,7 +20,7 @@
         </div>
         <div class="typeList">
           <a href="###">我的订单</a>
-          <a href="###">我的购物车</a>
+          <router-link to="/shopcart">我的购物车</router-link>
           <a href="###">我的尚品汇</a>
           <a href="###">尚品汇会员</a>
           <a href="###">企业采购</a>
@@ -48,6 +55,7 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
 export default {
   name: "Header",
   data() {
@@ -55,18 +63,32 @@ export default {
       keyword: "atguigu",
     };
   },
+  mounted() {
+    this.$bus.$on("removeKeyword", () => {
+      this.keyword = "";
+    });
+  },
+  computed: {
+    ...mapState({
+      userInfo: (state) => state.user.userInfo,
+    }),
+  },
   methods: {
     search() {
       const keyword = this.keyword;
-      this.$router
-        .push({
-          name: "search",
-          params: { keyword: keyword === "" ? undefined : keyword },
-          query: { keyword2: keyword.toUpperCase() },
-        })
-        .then(() => {
-          console.log("跳转成功的回调执行");
-        });
+      const location = {
+        name: "search",
+      };
+      if (keyword) {
+        location.params = { keyword };
+      }
+      const { query } = this.$route;
+      location.query = query;
+      if (this.$route.path.indexOf("/search") === 0) {
+        this.$router.replace(location);
+      } else {
+        this.$router.push(location);
+      }
     },
   },
 };

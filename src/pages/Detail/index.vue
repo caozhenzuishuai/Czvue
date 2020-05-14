@@ -6,13 +6,6 @@
     <!-- 主要内容区域 -->
     <section class="con">
       <!-- 导航路径区域 -->
-
-      <!-- <div class="conPoin" v-show="detailInfo.categoryView">
-        <span>{{detailInfo.categoryView.category1Name}}</span>
-        <span>{{detailInfo.categoryView.category2Name}}</span>
-        <span>{{detailInfo.categoryView.category3Name}}</span>
-      </div> -->
-
       <div class="conPoin">
         <span>{{ categoryView.category1Name }}</span>
         <span>{{ categoryView.category2Name }}</span>
@@ -368,8 +361,8 @@ export default {
 
   data() {
     return {
-      currentIndex: 0, // 当前要交给Zoom显示的图片下标
-      skuNum: 1, // 准备添加到购物车中商品的数量
+      currentIndex: 0,
+      skuNum: 1,
     };
   },
 
@@ -391,61 +384,35 @@ export default {
 
   methods: {
     async addToCart() {
-      // 取出商品的id与数量
       const skuId = this.$route.params.skuId;
       const skuNum = this.skuNum;
-
-      // 分发到action, 异步添加到购物车
-      /* 实现方式1: 利用回调函数数据 */
-      // this.$store.dispatch('addToCart', {skuId, skuNum, callback: this.callback})
-      // alert('---')
-
-      /* 实现方式2: 利用dispatch()的promise返回值 */
-      /* const errorMsg = await this.$store.dispatch('addToCart2', {})
-          if (errorMsg) { // 如果有值, 说明添加失败了
-            alert(errorMsg)
-          } else {
-            alert('添加成功, 准备自动跳转到成功的界面')
-          }
-        */
-
-      /* 实现方式2.2: 利用dispatch()的promise返回值 */
       try {
         await this.$store.dispatch("addToCart3", { skuId, skuNum });
-        alert("添加成功, 准备自动跳转到成功的界面");
+        window.sessionStorage.setItem(
+          "SKU_INFO_KEY",
+          JSON.stringify(this.skuInfo)
+        );
+        this.$router.push({
+          path: "/addcartsuccess",
+          query: { skuNum },
+        });
       } catch (error) {
         alert(error.message);
       }
     },
-
-    /* 
-      当异步action结束时自动调用的回调函数
-      */
     callback(errorMsg) {
       if (errorMsg) {
-        // 如果有值, 说明添加失败了
         alert(errorMsg);
       } else {
         alert("添加成功, 准备自动跳转到成功的界面");
       }
     },
-
-    /* 
-      当前图片下标发生改变的监听回调函数
-      */
     handleCurrentChange(index) {
       this.currentIndex = index;
     },
-
-    /* 
-      选择某个属性值
-      */
     selectValue(value, valueList) {
-      // 如果当前项没有选中才处理
       if (value.isChecked !== "1") {
-        // 将所有的项都先指定为不选择
         valueList.forEach((v) => (v.isChecked = "0"));
-        // 选中当前的
         value.isChecked = "1";
       }
     },
