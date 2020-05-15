@@ -87,7 +87,7 @@
           <i class="summoney">{{ totalPrice }}</i>
         </div>
         <div class="sumbtn">
-          <a class="sum-btn" href="###" target="_blank">结算</a>
+          <a class="sum-btn" @click="$router.push('/trade')">结算</a>
         </div>
       </div>
     </div>
@@ -108,7 +108,6 @@ export default {
     cartList2() {
       return this.$store.state.shopCart.cartList;
     },
-
     isAllChecked: {
       get() {
         // 判断是否是所有item的isChecked为1
@@ -119,10 +118,9 @@ export default {
         // return !this.cartList.some(item => item.isChecked===0)  // 是否有一个元素满足条件
         return (
           this.cartList.every((item) => item.isChecked === 1) &&
-          this.cartList > 0
-        ); 
+          this.cartList.length > 0
+        );
       },
-
       async set(value) {
         try {
           const result = await this.$store.dispatch("checkAllCartItems", value);
@@ -156,6 +154,7 @@ export default {
         }
       }
     },
+
     async checkCartItem(item) {
       const skuId = item.skuId;
       const isChecked = item.isChecked === 1 ? 0 : 1;

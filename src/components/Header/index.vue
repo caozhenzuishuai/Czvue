@@ -9,7 +9,7 @@
           <p v-if="userInfo.name">
             <span>{{ userInfo.nickName }}</span>
             &nbsp;&nbsp;&nbsp;
-            <a href="javascript:">登出</a>
+            <a href="javascript:" @click="logout">登出</a>
           </p>
 
           <p v-else>
@@ -19,7 +19,7 @@
           </p>
         </div>
         <div class="typeList">
-          <a href="###">我的订单</a>
+          <router-link to="/center/myorder">我的订单</router-link>
           <router-link to="/shopcart">我的购物车</router-link>
           <a href="###">我的尚品汇</a>
           <a href="###">尚品汇会员</a>
@@ -38,14 +38,20 @@
         </router-link>
       </h1>
       <div class="searchArea">
-        <form action="###" class="searchForm">
+        <!-- <form action="/xxx" class="searchForm" @submit.prevent="search"> -->
+        <form action="/xxx" class="searchForm">
           <input
             type="text"
             id="autocomplete"
             class="input-error input-xxlarge"
+            placeholder="关键字"
             v-model="keyword"
           />
-          <button class="sui-btn btn-xlarge btn-danger" @click.prevent="search">
+          <button
+            class="sui-btn btn-xlarge btn-danger"
+            @click.prevent="search"
+            type="submit"
+          >
             搜索
           </button>
         </form>
@@ -74,6 +80,11 @@ export default {
     }),
   },
   methods: {
+    logout() {
+      if (window.confirm("确定退出吗?")) {
+        this.$store.dispatch("logout");
+      }
+    },
     search() {
       const keyword = this.keyword;
       const location = {

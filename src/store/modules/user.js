@@ -10,9 +10,21 @@ export default {
     RECEIVE_USER_INFO(state, { userInfo }) {
       state.userInfo = userInfo;
     },
+    RESET_USER_INFO (state) {
+      state.userInfo = {}
+    }
   },
 
   actions: {
+    async logout ({commit}) {
+      const result = await reqLogout()
+      if (result.code===200) {
+        commit('RESET_USER_INFO')
+        removeUserInfo()
+      } else {
+        alert(result.message || '退出登陆失败')
+      }
+    },
     async register(context, userInfo) {
       const result = await reqRegister(userInfo);
       if (result.code !== 200) {

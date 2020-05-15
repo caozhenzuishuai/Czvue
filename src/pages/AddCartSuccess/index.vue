@@ -18,7 +18,6 @@
           <router-link class="sui-btn btn-xlarge" :to="`/detail/${skuInfo.id}`"
             >查看商品详情</router-link
           >
-          <!-- <router-link class="sui-btn btn-xlarge" :to="{name: 'detail', params: {skuId: skuInfo.id}}">查看商品详情</router-link> -->
           <a href="javascript:" @click="$router.push('/shopcart')"
             >去购物车结算 >
           </a>
@@ -28,6 +27,7 @@
   </div>
 </template>
 <script>
+import router from "@/router";
 export default {
   name: "AddCartSuccess",
   data() {
