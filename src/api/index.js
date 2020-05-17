@@ -36,3 +36,15 @@ export const reqRegister = (userInfo) =>
 export const reqLogout = () => ajax("/user/passport/logout");
 export const reqMyOrders = (page, limit) =>
   ajax(`/order/auth/${page}/${limit}`);
+export const reqTradeInfo = () => ajax("/order/auth/trade");
+export const reqSubmitOrder = (tradeNo, orderInfo) =>
+  ajax({
+    url: "/order/auth/submitOrder",
+    method: "POST",
+    params: { tradeNo },
+    data: orderInfo,
+  });
+export const reqPayInfo = (orderId) =>
+  ajax(`/payment/weixin/createNative/${orderId}`);
+export const reqOrderStatus = (orderId) =>
+  ajax(`/payment/weixin/queryPayStatus/${orderId}`);

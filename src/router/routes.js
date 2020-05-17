@@ -19,7 +19,7 @@ import router from "@/router";
 export default [
   {
     path: "/",
-    component: Home,
+    component: () => import("@/pages/Home"),
   },
   {
     name: "search",
@@ -68,6 +68,7 @@ export default [
   {
     path: "/pay",
     component: Pay,
+    props: (route) => ({ orderId: route.query.orderId }),
     beforeEnter(to, from, next) {
       if (from.path === "/trade") {
         next();

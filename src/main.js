@@ -9,6 +9,7 @@ import "swiper/css/swiper.min.css";
 import Pagination from "@/components/Pagination";
 import "./validate";
 import * as API from "@/api";
+import "./elements";
 Vue.config.productionTip = false;
 Vue.prototype.$API = API;
 Vue.component("TypeNav", TypeNav);
