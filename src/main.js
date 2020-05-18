@@ -10,11 +10,17 @@ import Pagination from "@/components/Pagination";
 import "./validate";
 import * as API from "@/api";
 import "./elements";
+import VueLazyload from "vue-lazyload";
+import loading from "@/assets/images/loading.gif";
+Vue.use(VueLazyload, {
+  loading,
+});
 Vue.config.productionTip = false;
 Vue.prototype.$API = API;
 Vue.component("TypeNav", TypeNav);
 Vue.component("Carousel", Carousel);
 Vue.component("Pagination", Pagination);
+
 new Vue({
   beforeCreate() {
     Vue.prototype.$bus = this;
